@@ -106,11 +106,6 @@ def parse_resource(resource, token):
 
         # download subtitle
         srt_info = res.json()["results"]["videoInfo"]["srtCaptions"]
-        if srt_info:
-            for srt_item in srt_info:
-                srt_path = os.path.splitext(file_path)[0] + "_" + srt_item["languageCode"] + ".srt"
-                srt_url = srt_item["url"]
-                spider.download_bin(srt_url, srt_path)
 
         return video_url, file_path, None
 
@@ -155,12 +150,7 @@ def get_resource(term_id, token, file_types=[VIDEO, PDF, RICH_TEXT]):
                 )
                 touch_dir(os.path.dirname(file_path))
 
-                if unit["contentType"] == VIDEO:
-                    ext = ".mp4"
-                    file_path += ext
-                    playlist.write_path(file_path)
-                    resource_list.append((VIDEO, file_path, unit["id"], unit["contentId"]))
-                elif unit["contentType"] == PDF:
+                if unit["contentType"] == PDF:
                     file_path += ".pdf"
                     resource_list.append((PDF, file_path, unit["id"], unit["contentId"]))
                 elif unit["contentType"] == RICH_TEXT:
@@ -236,18 +226,7 @@ if __name__ == "__main__":
             print("[info] {} already exists!".format(file_path))
             continue
         if ".m3u8" in url:
-            merge_file = {"target": file_path, "segments": []}
-            id = 0
-            m3u8_text = spider.get(url).text
-            for line in m3u8_text.split("\n"):
-                if line.endswith(".ts"):
-                    ts_url = "/".join(url.split("/")[:-1]) + "/" + line
-                    ts_path = "{}{:03d}.ts".format(file_path.rstrip(".mp4"), id)
-                    resources.append((ts_url, ts_path))
-                    id += 1
-                    merge_file["segments"].append(ts_path)
-            merge_list.append(merge_file)
-
+            print(1)
         else:
             if params is not None:
                 url += "?" + urlencode(params)
