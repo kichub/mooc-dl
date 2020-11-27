@@ -6,6 +6,7 @@
   "num_thread": 30,
   "overwrite": false,
   "file_path_template": "{base_dir}{sep}{type}{sep}{cnt_3} {unit_name}",
-  "file_types": [1, 3, 4],
+  "file_types": [3, 4],
+  "url": "https://www.icourse163.org/learn/TONGJI-53004?tid=1460964459#/learn/announce",
   "use_ffmpeg": false
 }

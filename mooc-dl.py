@@ -199,7 +199,7 @@ def merge(merge_list, ffmpeg=None):
 if __name__ == "__main__":
     root = CONFIG["root"]
     num_thread = CONFIG["num_thread"]
-    url = sys.argv[1]
+    url = CONFIG["url"]
 
     # 登录并获取信息
     token = login(CONFIG["username"], CONFIG["password"])
